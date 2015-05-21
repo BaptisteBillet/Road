@@ -7,5 +7,6 @@ public class Block : MonoBehaviour {
 	public int m_BlockNumber;
 
 	public Gate m_BlockGateScript;
+	public GameObject m_Graphisme;
 
 }

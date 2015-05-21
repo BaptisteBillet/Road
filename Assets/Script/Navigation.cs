@@ -50,14 +50,16 @@ public class Navigation : MonoBehaviour {
 		if(m_BlockNumber==m_BlockNumberTotal-1) //Retour à 0;
 		{
 			m_BlockScript = m_BlockListNavMesh[0].GetComponent<Block>();
-			m_Car1Script.m_Navmesh.destination = new Vector3(m_BlockListNavMesh[0].transform.position.x + m_BlockScript.m_BlockGateScript.m_DeltaX, m_BlockListNavMesh[0].transform.position.y, m_BlockListNavMesh[0].transform.position.z + m_BlockScript.m_BlockGateScript.m_DeltaZ);
+			m_Car1Script.m_Navmesh.destination = m_BlockListNavMesh[0].GetComponent<Block>().m_BlockGateScript.transform.position;
+				/*new Vector3(m_BlockListNavMesh[0].transform.position.x + m_BlockScript.m_BlockGateScript.m_DeltaX, m_BlockListNavMesh[0].transform.position.y, m_BlockListNavMesh[0].transform.position.z + m_BlockScript.m_BlockGateScript.m_DeltaZ);*/
 		}
 		else
 		{
 			m_BlockScript = m_BlockListNavMesh[m_BlockNumber + 1].GetComponent<Block>();
-			m_Car1Script.m_Navmesh.destination = new Vector3(m_BlockListNavMesh[m_BlockNumber + 1].transform.position.x + m_BlockScript.m_BlockGateScript.m_DeltaX, 
+			m_Car1Script.m_Navmesh.destination = m_BlockListNavMesh[m_BlockNumber + 1].GetComponent<Block>().m_BlockGateScript.transform.position;
+				/*new Vector3(m_BlockListNavMesh[m_BlockNumber + 1].transform.position.x + m_BlockScript.m_BlockGateScript.m_DeltaX, 
 															m_BlockListNavMesh[m_BlockNumber + 1].transform.position.y, 
-															m_BlockListNavMesh[m_BlockNumber + 1].transform.position.z + m_BlockScript.m_BlockGateScript.m_DeltaZ);
+															m_BlockListNavMesh[m_BlockNumber + 1].transform.position.z + m_BlockScript.m_BlockGateScript.m_DeltaZ);*/
 		}
 		
 
