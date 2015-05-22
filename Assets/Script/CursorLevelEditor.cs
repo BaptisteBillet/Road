@@ -16,9 +16,11 @@ public class CursorLevelEditor : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		m_SelectionNumber = 1;
 		m_Image_script = Image[m_SelectionNumber].GetComponent<ImageEditorSelection>();
 		m_NumberOfImage = Image.Count;
 		m_IsOKToMove=true;
+		
 	}
 	
 	IEnumerator DelayMove()
@@ -27,6 +29,15 @@ public class CursorLevelEditor : MonoBehaviour {
 		m_IsOKToMove = true;
 	}
 
+	void ChangeImage()
+	{
+	
+		
+		StartCoroutine(DelayMove());
+		m_Image_script = Image[m_SelectionNumber].GetComponent<ImageEditorSelection>();
+	}
+
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -34,36 +45,61 @@ public class CursorLevelEditor : MonoBehaviour {
 		#region Curseur
 		if (m_IsOKToMove)
 		{
+			
 
 			if (Input.GetAxis("TriggersL_1") > 0 && m_IsOKToMove)
 			{
 				if (m_SelectionNumber > 0)
 				{
+					m_IsOKToMove = false;
 					Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
 					m_SelectionNumber--;
-					m_IsOKToMove = false;
-					StartCoroutine(DelayMove());
-					m_Image_script = Image[m_SelectionNumber].GetComponent<ImageEditorSelection>();
+					ChangeImage();
+				}
+				else
+				{
+					if (m_SelectionNumber == 0)
+					{
+						m_IsOKToMove = false;
+						Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
+						m_SelectionNumber = m_NumberOfImage - 1;
+						Debug.Log(m_SelectionNumber);
+						ChangeImage();
+					}
 				}
 				
+				
+			
 			}
 			if (Input.GetAxis("TriggersR_1") > 0 && m_IsOKToMove)
 			{
-				if (m_SelectionNumber < m_NumberOfImage-1)
+
+				if (m_SelectionNumber < m_NumberOfImage - 1)
 				{
+
+					m_IsOKToMove = false;
 					Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
 					m_SelectionNumber++;
-					m_IsOKToMove = false;
-					StartCoroutine(DelayMove());
-					m_Image_script = Image[m_SelectionNumber].GetComponent<ImageEditorSelection>();
+					Debug.Log(m_SelectionNumber);
+					ChangeImage();
 				}
+				else
+				{
+					if (m_SelectionNumber == m_NumberOfImage - 1)
+					{
+						m_IsOKToMove = false;
+						Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
+						m_SelectionNumber = 0;
+						Debug.Log(m_SelectionNumber);
+						ChangeImage();
+					}
+				}
+				
 			}
 
 
 		}
-
 		Image[m_SelectionNumber].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-
 	}
 		#endregion
 

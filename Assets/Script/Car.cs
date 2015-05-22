@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Car : MonoBehaviour {
 
-
+	public int m_PlayerNumber;
 	public int m_BlockNumber;
 
 	public NavMeshAgent m_Navmesh;
@@ -29,42 +29,76 @@ public class Car : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-
-		if(m_CanMove)
+		switch(m_PlayerNumber)
 		{
-			this.transform.eulerAngles = new Vector3(m_BaseRotation.x, this.transform.eulerAngles.y, m_BaseRotation.z);
+			case 1:
+				if (m_CanMove)
+				{
+					this.transform.eulerAngles = new Vector3(m_BaseRotation.x, this.transform.eulerAngles.y, m_BaseRotation.z);
 
-			if (Input.GetAxis("TriggersR_1") > 0)
-			{
-				m_CurrentCarSpeed += m_CarAcceleration;
-			}
-			if (m_CurrentCarSpeed > m_CarSpeed)
-			{
-				m_CurrentCarSpeed = m_CarSpeed;
-			}
+					if (Input.GetAxis("TriggersR_1") > 0)
+					{
+						m_CurrentCarSpeed += m_CarAcceleration;
+					}
+					if (m_CurrentCarSpeed > m_CarSpeed)
+					{
+						m_CurrentCarSpeed = m_CarSpeed;
+					}
 
-			if (Input.GetAxis("TriggersR_1") <= 0)
-			{
-				m_CurrentCarSpeed -= m_CarDesceleration;
-			}
-			if (Input.GetButton("B_1"))
-			{
-				m_CurrentCarSpeed -= m_CarDesceleration * 3;
-			}
-			if (m_CurrentCarSpeed < 0)
-			{
-				m_CurrentCarSpeed = 0;
-			}
+					if (Input.GetAxis("TriggersR_1") <= 0)
+					{
+						m_CurrentCarSpeed -= m_CarDesceleration;
+					}
+					if (Input.GetButton("B_1"))
+					{
+						m_CurrentCarSpeed -= m_CarDesceleration * 3;
+					}
+					if (m_CurrentCarSpeed < 0)
+					{
+						m_CurrentCarSpeed = 0;
+					}
+					m_Navmesh.speed = Input.GetAxis("TriggersR_1") * m_CurrentCarSpeed;
+				}
+				break;
+			case 2:
+				if (m_CanMove)
+				{
+					this.transform.eulerAngles = new Vector3(m_BaseRotation.x, this.transform.eulerAngles.y, m_BaseRotation.z);
 
-			m_Navmesh.speed = Input.GetAxis("TriggersR_1") * m_CurrentCarSpeed;
+					if (Input.GetAxis("TriggersR_2") > 0)
+					{
+						m_CurrentCarSpeed += m_CarAcceleration;
+					}
+					if (m_CurrentCarSpeed > m_CarSpeed)
+					{
+						m_CurrentCarSpeed = m_CarSpeed;
+					}
+
+					if (Input.GetAxis("TriggersR_2") <= 0)
+					{
+						m_CurrentCarSpeed -= m_CarDesceleration;
+					}
+					if (Input.GetButton("B_2"))
+					{
+						m_CurrentCarSpeed -= m_CarDesceleration * 3;
+					}
+					if (m_CurrentCarSpeed < 0)
+					{
+						m_CurrentCarSpeed = 0;
+					}
+					m_Navmesh.speed = Input.GetAxis("TriggersR_2") * m_CurrentCarSpeed;
+				}
+				break;
+
+
+
+
+		}
+
 
 		}
 
 		
-		
-
-
-	}
 
 	void OnTriggerEnter(Collider other)
 	{
