@@ -12,6 +12,7 @@ public class CarCollision : MonoBehaviour {
 
 	public int m_CarSpeedOut;
 
+
 	// Use this for initialization
 	void Start () {
 		m_Navigation = GameObject.Find("NavDirector");
@@ -26,7 +27,6 @@ public class CarCollision : MonoBehaviour {
 		m_CarScript.m_CurrentCarSpeed = 0;
 		yield return new WaitForSeconds(1);
 		GetComponent<Rigidbody>().useGravity = true;
-
 
 		yield return new WaitForSeconds(m_DelayRapatriement);
 		//this.transform.position=m_CarScript.m_BlockNumber

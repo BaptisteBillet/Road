@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using EasyJSON;
 
 public class LevelEditor : MonoBehaviour {
 
@@ -154,6 +155,11 @@ public class LevelEditor : MonoBehaviour {
 
 		#endregion
 
+		if (Input.GetButton("Start") && m_IsOKToMove)
+		{
+			string output = Serializer.Serialize<GameObject>();
+			Debug.Log("Compressed Json:\n" + output);
+		}
 
 	}
 
