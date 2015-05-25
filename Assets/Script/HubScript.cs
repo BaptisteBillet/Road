@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 
 public class HubScript : MonoBehaviour {
@@ -13,6 +14,8 @@ public class HubScript : MonoBehaviour {
 
 	// Use this for initializationEasyJSONExample
 	void Start () {
+		//System.IO.File.WriteAllText("C:\\Users\\Baptiste.B-FIXE\\Documents\\GitHub\\Road\\Assets\\texte.txt", "aaa");
+		System.IO.File.WriteAllText(Application.dataPath+"\\SaveLevel\\texte.txt", "aaa");
 
 	}
 	

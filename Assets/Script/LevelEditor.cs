@@ -157,8 +157,6 @@ public class LevelEditor : MonoBehaviour {
 
 		if (Input.GetButton("Start") && m_IsOKToMove)
 		{
-			string output = Serializer.Serialize<GameObject>();
-			Debug.Log("Compressed Json:\n" + output);
 		}
 
 	}
