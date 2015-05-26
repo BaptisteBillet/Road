@@ -45,9 +45,9 @@ public class CursorLevelEditor : MonoBehaviour {
 		#region Curseur
 		if (m_IsOKToMove)
 		{
-			
 
-			if (Input.GetAxis("TriggersL_1") > 0 && m_IsOKToMove)
+
+			if (Input.GetButtonDown("LB_1") && m_IsOKToMove)
 			{
 				if (m_SelectionNumber > 0)
 				{
@@ -63,15 +63,15 @@ public class CursorLevelEditor : MonoBehaviour {
 						m_IsOKToMove = false;
 						Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
 						m_SelectionNumber = m_NumberOfImage - 1;
-						Debug.Log(m_SelectionNumber);
+
 						ChangeImage();
 					}
 				}
-				
+			
 				
 			
 			}
-			if (Input.GetAxis("TriggersR_1") > 0 && m_IsOKToMove)
+			if (Input.GetButtonDown("RB_1") && m_IsOKToMove)
 			{
 
 				if (m_SelectionNumber < m_NumberOfImage - 1)
@@ -80,7 +80,7 @@ public class CursorLevelEditor : MonoBehaviour {
 					m_IsOKToMove = false;
 					Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
 					m_SelectionNumber++;
-					Debug.Log(m_SelectionNumber);
+
 					ChangeImage();
 				}
 				else
@@ -90,7 +90,7 @@ public class CursorLevelEditor : MonoBehaviour {
 						m_IsOKToMove = false;
 						Image[m_SelectionNumber].transform.localScale = new Vector3(1f, 1f, 1f);
 						m_SelectionNumber = 0;
-						Debug.Log(m_SelectionNumber);
+
 						ChangeImage();
 					}
 				}

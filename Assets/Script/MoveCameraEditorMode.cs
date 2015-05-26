@@ -14,11 +14,11 @@ public class MoveCameraEditorMode : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetButton("X_1"))
+		if (Input.GetAxis("TriggersL_1") > 0)
 		{
 			m_Camera.fieldOfView--;
 		}
-		if (Input.GetButton("Y_1"))
+		if (Input.GetAxis("TriggersR_1") > 0)
 		{
 			m_Camera.fieldOfView++;
 		}
