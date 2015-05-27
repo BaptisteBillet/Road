@@ -72,8 +72,7 @@ public class LoadLevel : MonoBehaviour {
 					
 				}
 
-				//On crée la rotation
-				//m_ShortMemory = m_ShortMemory.Remove(0, 2);
+			
 				RotateTile(int.Parse(m_ShortMemory));
 				m_ShortMemory += ((char)sr.Read()).ToString(); //On rajoute ce que l'on lis dans la mémoire
 				//On remet la mémoire à zéro
@@ -89,11 +88,12 @@ public class LoadLevel : MonoBehaviour {
 
 	void RotateTile(int degree)
 	{
+		/*
 		if (m_BlockInstance!=null)
 		{
 			m_BlockScript = m_BlockInstance.GetComponent<Block>();
 			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, degree, 0);
-		}
+		}*/
 		
 	}
 
