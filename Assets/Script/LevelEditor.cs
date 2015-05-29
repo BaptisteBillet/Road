@@ -27,15 +27,17 @@ public class LevelEditor : MonoBehaviour {
 	public int m_CursorPosZ;
 
 	private Block m_BlockScript;
-	public float m_RotateMemory;
+	public int m_RotateMemory;
+
+	private int m_FixeRotate=90;
 
 	//SAUVEGARDE
-	DirectoryInfo dir = new DirectoryInfo(Application.dataPath+"\\SaveLevel");
+	DirectoryInfo dir;
 	public string m_SaveName;
 	private string m_SaveData;
 	// Use this for initialization
 	void Start () {
-
+		dir = new DirectoryInfo(Application.dataPath+"\\SaveLevel");
 		m_Curseur.transform.position = new Vector3(4, 2, 4);
 
 		if (m_LevelSize <= 0) { m_LevelSize = 10; }
@@ -62,37 +64,18 @@ public class LevelEditor : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		m_IsOKToMove = true;
 	}
-
-	void Verification()
+	public float RoundFloat(float number, int numberOfNumbers)
 	{
-		Debug.Log(m_BlockScript.m_Graphisme.transform.localEulerAngles.y);
-		if (m_BlockScript.m_Graphisme.transform.localEulerAngles.y > 0 && m_BlockScript.m_Graphisme.transform.localEulerAngles.y < 1)
-		{
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, 0.0f, 0);
-		}
-		if (m_BlockScript.m_Graphisme.transform.localEulerAngles.y > 90 && m_BlockScript.m_Graphisme.transform.localEulerAngles.y < 91)
-		{
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, 90.0f, 0);
-		}
-		if (m_BlockScript.m_Graphisme.transform.localEulerAngles.y > 180 && m_BlockScript.m_Graphisme.transform.localEulerAngles.y < 181)
-		{
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, 90.0f, 0);
-		}
-		if (m_BlockScript.m_Graphisme.transform.localEulerAngles.y > 270 && m_BlockScript.m_Graphisme.transform.localEulerAngles.y < 271)
-		{
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, 270.0f, 0);
-		}
-		if (m_BlockScript.m_Graphisme.transform.localEulerAngles.y > 360 && m_BlockScript.m_Graphisme.transform.localEulerAngles.y < 361)
-		{
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, 0f, 0);
-		}
+		float power = Mathf.Pow(10, numberOfNumbers);
+		number = Mathf.Round(number * power);
+		number /= power;
+		return number;
 	}
-
-
+	
 	// Update is called once per frame
 	void Update()
 	{
-
+		
 		#region Curseur
 		if (m_IsOKToMove)
 		{
@@ -167,7 +150,7 @@ public class LevelEditor : MonoBehaviour {
 			m_BlockInstance.transform.position = new Vector3(m_CursorPosX * 8, 0, m_CursorPosZ * 8);
 			m_LevelArray[m_CursorPosX, m_CursorPosZ] = m_BlockInstance;
 			m_BlockScript = m_LevelArray[m_CursorPosX, m_CursorPosZ].GetComponent<Block>();
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, m_RotateMemory, 0);
+			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, (float)m_RotateMemory, 0);
 		}
 		if (Input.GetButton("B_1"))
 		{
@@ -184,29 +167,22 @@ public class LevelEditor : MonoBehaviour {
 		if (Input.GetButtonDown("X_1"))
 		{
 			m_BlockScript = m_LevelArray[m_CursorPosX, m_CursorPosZ].GetComponent<Block>();
-			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, 90.0f, 0);
+			m_BlockScript.m_Graphisme.transform.localEulerAngles += new Vector3(0, (float)m_FixeRotate, 0);
 			
-			m_RotateMemory += 90.0f;
-			if (m_RotateMemory > 360)
-			{
-				m_RotateMemory = 90f;
-			}
-			Verification();
-			Debug.Log(m_BlockScript.m_Graphisme.transform.localEulerAngles.y);
+			m_RotateMemory += 90;
+			
+			
+			Debug.Log((int)m_BlockScript.m_Graphisme.transform.localEulerAngles.y);
 			
 		}
 		if (Input.GetButtonDown("Y_1"))
 		{
 			m_BlockScript=m_LevelArray[m_CursorPosX, m_CursorPosZ].GetComponent<Block>();
-			m_BlockScript.m_Graphisme.transform.localEulerAngles -= new Vector3(0, 90.0f, 0);
+			m_BlockScript.m_Graphisme.transform.localEulerAngles -= new Vector3(0, (float)m_FixeRotate, 0);
 
-			m_RotateMemory -= 90.0f;
-			if(m_RotateMemory<0)
-			{
-				m_RotateMemory = 270f;
-			}
-			Verification();
-			Debug.Log(m_BlockScript.m_Graphisme.transform.localEulerAngles.y);
+			m_RotateMemory -= 90;
+			
+			Debug.Log((int)m_BlockScript.m_Graphisme.transform.localEulerAngles.y);
 				
 
 		}
@@ -228,7 +204,7 @@ public class LevelEditor : MonoBehaviour {
 				for (int y = 0; y < m_LevelSize; y++)
 				{
 					m_BlockScript = m_LevelArray[i,y].GetComponent<Block>();
-					m_SaveData += m_LevelArray[i, y].name + "," + m_BlockScript.m_Graphisme.transform.localEulerAngles.y+";";
+					m_SaveData += m_LevelArray[i, y].name + "," + (int)m_BlockScript.m_Graphisme.transform.localEulerAngles.y+";";
 				}
 			}
 			m_SaveData += "}";
