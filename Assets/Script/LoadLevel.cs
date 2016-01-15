@@ -22,7 +22,7 @@ public class LoadLevel : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		m_SaveData=System.IO.File.ReadAllText(Application.dataPath + "\\SaveLevel\\" + m_SaveName + ".txt");
+		m_SaveData=System.IO.File.ReadAllText(Application.dataPath + "\\SaveLevel");
 		System.IO.StringReader sr = new StringReader(m_SaveData);
 
 		//On vide la mémoire
@@ -34,8 +34,14 @@ public class LoadLevel : MonoBehaviour {
 		//On prend le premier charactere
 		while ((char)sr.Peek() != ';') //On test on ne parcours pas.
 		{
-			m_ShortMemory += ((char)sr.Read()).ToString(); //On rajoute ce que l'on lis dans la mémoire
+            if((char)sr.Peek() != '{')
+            {
+                m_ShortMemory += ((char)sr.Read()).ToString(); //On rajoute ce que l'on lis dans la mémoire
+            }
+			
 		}
+
+
 
 		//On enregistre la taille de la zone
 		m_LevelSize = int.Parse(m_ShortMemory);
